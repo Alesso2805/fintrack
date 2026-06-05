@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fintrack-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fintrack
+      POSTGRES_USER: fintrack_user
+      POSTGRES_PASSWORD: fintrack_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - fintrack_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fintrack_user -d fintrack"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fintrack-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://fintrack_user:fintrack_password@postgres:5432/fintrack
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  fintrack_postgres_data:
