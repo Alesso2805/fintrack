@@ -32,7 +32,7 @@ fintrack/
 - Initial admin seed.
 - Protected endpoints.
 
-### Phase 3
+### Phase 3 - Done
 
 - Investors, movement categories, and financial movements.
 - CRUD endpoints.

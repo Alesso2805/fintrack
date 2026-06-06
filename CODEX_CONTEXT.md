@@ -31,7 +31,7 @@ fintrack/
 
 ## Current Status
 
-Phase 1 and Phase 2 have been implemented and verified.
+Phase 1, Phase 2, and Phase 3 have been implemented and verified.
 
 Implemented:
 
@@ -58,12 +58,19 @@ Implemented:
 - RBAC dependencies and protected sample routes exist.
 - Initial admin seed script exists.
 - Alembic migration for users exists.
+- Phase 3 business entities are implemented:
+  - `Investor`
+  - `MovementCategory`
+  - `FinancialMovement`
+- CRUD endpoints exist for investors, movement categories, and financial movements.
+- Financial movement filters exist for investor, category, type, status, and date range.
+- Phase 3 Alembic migration exists and has been applied locally.
 
 Verified:
 
 ```text
 docker compose exec --workdir /app backend python -m pytest
-4 passed
+8 passed
 ```
 
 Docker stack was also verified successfully:
@@ -89,6 +96,9 @@ Health: http://localhost:8000/api/v1/health
 DB Health: http://localhost:8000/api/v1/health/db
 Login: http://localhost:8000/api/v1/auth/login
 Current User: http://localhost:8000/api/v1/auth/me
+Investors: http://localhost:8000/api/v1/investors
+Movement Categories: http://localhost:8000/api/v1/movement-categories
+Financial Movements: http://localhost:8000/api/v1/financial-movements
 ```
 
 ## Important Docker Commands
@@ -320,7 +330,7 @@ backend/app/
 
 Keep the architecture clean but pragmatic. Do not over-engineer. Prefer clear service/repository separation only where it helps testability and future CRUD expansion.
 
-### Phase 3 - Next
+### Phase 3 - Done
 
 Implement primary business entities:
 
@@ -336,7 +346,7 @@ Include:
 - Alembic migrations.
 - Tests.
 
-### Phase 4
+### Phase 4 - Next
 
 Implement CSV import:
 
@@ -398,7 +408,7 @@ Polish for portfolio:
 When returning to this project, tell Codex:
 
 ```text
-Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 3.
+Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 4.
 ```
 
-Codex should first inspect the current file tree and Git status, then continue with Phase 3 implementation.
+Codex should first inspect the current file tree and Git status, then continue with Phase 4 implementation.

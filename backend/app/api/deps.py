@@ -9,8 +9,18 @@ from app.core.config import settings
 from app.core.security import decode_token
 from app.db.session import get_db_session
 from app.models.user import User, UserRole
+from app.repositories.financial_repository import (
+    FinancialMovementRepository,
+    InvestorRepository,
+    MovementCategoryRepository,
+)
 from app.repositories.user_repository import UserRepository
 from app.services.auth_service import AuthService
+from app.services.financial_service import (
+    FinancialMovementService,
+    InvestorService,
+    MovementCategoryService,
+)
 from app.services.user_service import UserService
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.api_v1_prefix}/auth/login")
@@ -22,6 +32,26 @@ def get_user_service(session: AsyncSession = Depends(get_db_session)) -> UserSer
 
 def get_auth_service(user_service: UserService = Depends(get_user_service)) -> AuthService:
     return AuthService(user_service)
+
+
+def get_investor_service(session: AsyncSession = Depends(get_db_session)) -> InvestorService:
+    return InvestorService(InvestorRepository(session))
+
+
+def get_movement_category_service(
+    session: AsyncSession = Depends(get_db_session),
+) -> MovementCategoryService:
+    return MovementCategoryService(MovementCategoryRepository(session))
+
+
+def get_financial_movement_service(
+    session: AsyncSession = Depends(get_db_session),
+) -> FinancialMovementService:
+    return FinancialMovementService(
+        movement_repository=FinancialMovementRepository(session),
+        investor_repository=InvestorRepository(session),
+        category_repository=MovementCategoryRepository(session),
+    )
 
 
 async def get_current_user(
