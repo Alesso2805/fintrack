@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+.venv/
+
+# Environment
+.env
+backend/.env
+frontend/.env.local
+
+# Docker/local data
+*.log
+
+# Node/Next.js
+node_modules/
+.next/
+out/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
