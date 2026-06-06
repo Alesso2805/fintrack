@@ -14,7 +14,7 @@ fintrack/
 
 ## Implementation Roadmap
 
-### Phase 1 - Current
+### Phase 1 - Done
 
 - Monorepo structure.
 - Docker Compose with PostgreSQL and FastAPI backend.
@@ -24,7 +24,7 @@ fintrack/
 - Health check endpoints.
 - Backend test scaffold.
 
-### Phase 2
+### Phase 2 - Done
 
 - JWT authentication with access and refresh tokens.
 - Password hashing with bcrypt/passlib.
@@ -62,13 +62,16 @@ fintrack/
 
 ## Local Development
 
-Copy the backend environment file:
+Create local environment files from the committed examples:
 
 ```bash
+cp .env.example .env
 cp backend/.env.example backend/.env
 ```
 
-Start the Phase 1 stack:
+Replace every placeholder value before starting the stack. Use unique local values and never reuse them in production.
+
+Start the stack:
 
 ```bash
 docker compose up --build
@@ -94,6 +97,13 @@ GET http://localhost:8000/api/v1/health/db
 ```
 ## Security Notes
 
-The repository includes only development defaults for Docker and local setup. Do not use the sample PostgreSQL credentials from `docker-compose.yml` or `.env.example` in production.
+The repository does not commit real secrets. Required sensitive values are loaded from ignored `.env` files or deployment environment variables.
 
-Real secrets must stay in local `.env` files, deployment secret managers, or CI/CD secret storage. The local `backend/.env` file is intentionally ignored by Git.
+Never commit:
+
+- Database passwords.
+- JWT signing secrets.
+- Initial admin passwords.
+- Production URLs with embedded credentials.
+
+For production, store secrets in a deployment secret manager or CI/CD secret storage, rotate the initial admin password after first login, and use a strong random `SECRET_KEY` with at least 32 bytes of entropy.

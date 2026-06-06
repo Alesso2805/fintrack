@@ -1,1 +1,3 @@
-"""SQLAlchemy model package. Models are added in later phases."""
+from app.models.user import User, UserRole
+
+__all__ = ["User", "UserRole"]
