@@ -365,21 +365,20 @@ Implement dashboard endpoints and CSV export:
 - Integration with historical import data.
 - CSV report generation based on active filters.
 
-### Phase 6 - Next
+### Phase 6 - Done
 
 Frontend Development (React/Next.js/Vite):
 
-Create frontend with Next.js:
-
+- Initialized Next.js.
+- Premium Dark mode styling (Vanilla CSS).
 - Login page.
-- Authenticated dashboard.
-- Metric cards.
-- Charts using Recharts.
+- Authenticated dashboard Layout.
+- Metric cards & Charts using Recharts.
 - Movements table using TanStack Table.
-- Create/edit movement forms using React Hook Form + Zod.
-- Reports view.
 - CSV upload view.
 - Responsive UI.
+
+### Phase 7 - Next
 
 Do not build frontend before backend endpoints are ready enough to test real flows.
 
@@ -409,7 +408,7 @@ Polish for portfolio:
 When returning to this project, tell Codex:
 
 ```text
-Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 6.
+Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 7.
 ```
 
-Codex should first inspect the current file tree and Git status, then continue with Phase 6 implementation.
+Codex should first inspect the current file tree and Git status, then continue with Phase 7 implementation.
