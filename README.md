@@ -38,13 +38,13 @@ fintrack/
 - CRUD endpoints.
 - Filters and validations.
 
-### Phase 4
+### Phase 4 - Done
 
 - CSV import with row-level validation.
 - ImportBatch tracking.
 - Partial valid-row loading.
 
-### Phase 5
+### Phase 5 - Next
 
 - Dashboard metrics endpoints.
 - CSV report export.

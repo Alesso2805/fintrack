@@ -5,5 +5,7 @@ class Base(DeclarativeBase):
     pass
 
 
-import app.models.user  # noqa: E402,F401
-import app.models.financial  # noqa: E402,F401
+import app.models.user
+import app.models.financial
+import app.models.imports
+import app.models.audit

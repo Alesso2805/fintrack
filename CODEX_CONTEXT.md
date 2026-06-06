@@ -346,7 +346,7 @@ Include:
 - Alembic migrations.
 - Tests.
 
-### Phase 4 - Next
+### Phase 4 - Done
 
 Implement CSV import:
 
@@ -357,7 +357,7 @@ Implement CSV import:
 - Partial success when possible.
 - Audit/action logs where appropriate.
 
-### Phase 5
+### Phase 5 - Next
 
 Implement dashboard endpoints and CSV export:
 
@@ -408,7 +408,7 @@ Polish for portfolio:
 When returning to this project, tell Codex:
 
 ```text
-Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 4.
+Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 5.
 ```
 
-Codex should first inspect the current file tree and Git status, then continue with Phase 4 implementation.
+Codex should first inspect the current file tree and Git status, then continue with Phase 5 implementation.
