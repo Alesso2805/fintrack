@@ -85,6 +85,28 @@ class FinancialMovementRepository:
             FinancialMovement.movement_date.desc(),
             FinancialMovement.created_at.desc(),
         )
+        statement = self._apply_filters(
+            statement,
+            investor_id=investor_id,
+            category_id=category_id,
+            movement_type=movement_type,
+            status=status,
+            date_from=date_from,
+            date_to=date_to,
+        )
+        result = await self.session.execute(statement)
+        return list(result.scalars().all())
+
+    def _apply_filters(
+        self,
+        statement: Select,
+        investor_id: str | None = None,
+        category_id: str | None = None,
+        movement_type: MovementType | None = None,
+        status: MovementStatus | None = None,
+        date_from: date | None = None,
+        date_to: date | None = None,
+    ) -> Select:
         if investor_id:
             statement = statement.where(FinancialMovement.investor_id == investor_id)
         if category_id:
@@ -97,9 +119,60 @@ class FinancialMovementRepository:
             statement = statement.where(FinancialMovement.movement_date >= date_from)
         if date_to:
             statement = statement.where(FinancialMovement.movement_date <= date_to)
+        return statement
 
+    async def get_balances_by_currency(
+        self,
+        investor_id: str | None = None,
+        category_id: str | None = None,
+        status: MovementStatus | None = None,
+        date_from: date | None = None,
+        date_to: date | None = None,
+    ):
+        from sqlalchemy import func
+        statement = select(
+            FinancialMovement.currency,
+            func.sum(FinancialMovement.amount).filter(FinancialMovement.type == MovementType.DEPOSIT).label('total_deposits'),
+            func.sum(FinancialMovement.amount).filter(FinancialMovement.type == MovementType.WITHDRAWAL).label('total_withdrawals')
+        )
+        statement = self._apply_filters(
+            statement,
+            investor_id=investor_id,
+            category_id=category_id,
+            status=status,
+            date_from=date_from,
+            date_to=date_to,
+        )
+        statement = statement.group_by(FinancialMovement.currency)
         result = await self.session.execute(statement)
-        return list(result.scalars().all())
+        return result.all()
+
+    async def get_category_distribution(
+        self,
+        investor_id: str | None = None,
+        movement_type: MovementType | None = None,
+        status: MovementStatus | None = None,
+        date_from: date | None = None,
+        date_to: date | None = None,
+    ):
+        from sqlalchemy import func
+        statement = select(
+            MovementCategory.id.label('category_id'),
+            MovementCategory.name.label('category_name'),
+            func.sum(FinancialMovement.amount).label('total_amount')
+        ).join(MovementCategory, FinancialMovement.category_id == MovementCategory.id)
+        
+        statement = self._apply_filters(
+            statement,
+            investor_id=investor_id,
+            movement_type=movement_type,
+            status=status,
+            date_from=date_from,
+            date_to=date_to,
+        )
+        statement = statement.group_by(MovementCategory.id, MovementCategory.name)
+        result = await self.session.execute(statement)
+        return result.all()
 
     async def get(self, movement_id: str) -> FinancialMovement | None:
         return await self.session.get(FinancialMovement, movement_id)

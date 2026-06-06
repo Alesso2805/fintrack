@@ -357,16 +357,17 @@ Implement CSV import:
 - Partial success when possible.
 - Audit/action logs where appropriate.
 
-### Phase 5 - Next
+### Phase 5 - Done
 
 Implement dashboard endpoints and CSV export:
 
-- Metrics summary endpoint.
-- Recent movements endpoint or embedded dashboard response.
-- Monthly trend endpoint.
-- CSV export endpoint with filters.
+- Dashboard API: aggregate metrics, totals by currency, distributions.
+- Integration with historical import data.
+- CSV report generation based on active filters.
 
-### Phase 6
+### Phase 6 - Next
+
+Frontend Development (React/Next.js/Vite):
 
 Create frontend with Next.js:
 
@@ -408,7 +409,7 @@ Polish for portfolio:
 When returning to this project, tell Codex:
 
 ```text
-Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 5.
+Read CODEX_CONTEXT.md in C:\Users\USER\Documents\GitHub\new\fintrack and continue with Phase 6.
 ```
 
-Codex should first inspect the current file tree and Git status, then continue with Phase 5 implementation.
+Codex should first inspect the current file tree and Git status, then continue with Phase 6 implementation.

@@ -44,12 +44,12 @@ fintrack/
 - ImportBatch tracking.
 - Partial valid-row loading.
 
-### Phase 5 - Next
+### Phase 5 - Done
 
-- Dashboard metrics endpoints.
+- Dashboard metrics endpoints (balances, category distributions).
 - CSV report export.
 
-### Phase 6
+### Phase 6 - Next
 
 - Next.js App Router frontend.
 - Login, dashboard, movement table, forms, reports, and upload flow.
