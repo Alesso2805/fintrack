@@ -54,12 +54,13 @@ export async function apiFetch(endpoint: string, options: FetchOptions = {}) {
 }
 
 export async function apiJson(endpoint: string, options: FetchOptions = {}) {
-  const headers = new Headers(options.headers || {});
-  if (!headers.has('Content-Type')) {
-    headers.set('Content-Type', 'application/json');
+  const customHeaders: Record<string, string> = { ...((options.headers as Record<string, string>) || {}) };
+  
+  if (!customHeaders['Content-Type']) {
+    customHeaders['Content-Type'] = 'application/json';
   }
 
-  const response = await apiFetch(endpoint, { ...options, headers });
+  const response = await apiFetch(endpoint, { ...options, headers: customHeaders });
   
   const text = await response.text();
   if (!text) return null;
